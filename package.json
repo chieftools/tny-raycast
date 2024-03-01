@@ -13,21 +13,21 @@
     {
       "name": "shorten-selected-url",
       "title": "Shorten selected url and copy",
-      "subtitle": "This command shortens the selected url",
+      "subtitle": "Tny",
       "description": "This command shortens the selected url",
       "mode": "no-view"
     },
     {
       "name": "shorten-and-replace-selected-url",
       "title": "Shorten selected url and replace",
-      "subtitle": "This command shortens and replaces the selected url",
+      "subtitle": "Tny",
       "description": "This command shortens and replaces the selected url",
       "mode": "no-view"
     },
     {
       "name": "manage-short-links",
       "title": "Manage short links",
-      "subtitle": "Manage your Tny links",
+      "subtitle": "Tny",
       "description": "Manage your Tny links",
       "mode": "view"
     }

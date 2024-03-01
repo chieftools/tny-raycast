@@ -1,4 +1,4 @@
-import { Clipboard, showToast, Toast, getSelectedText } from "@raycast/api";
+import { Clipboard, showToast, Toast, getSelectedText, showHUD } from "@raycast/api";
 import Client from "./utils/Client";
 import linkCreate from "./mutations/linkCreate";
 
@@ -49,6 +49,8 @@ export default async function Command() {
     await Clipboard.copy({
       text: newUrl.text,
     });
+
+    showHUD('Successfully copied the shortened url');
   }).catch(async () => {
     await showToast({
       title: 'Error',

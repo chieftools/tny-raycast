@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Clipboard, Icon, List, showToast, Toast } from "@raycast/api";
+import { Action, ActionPanel, Clipboard, Icon, List, showHUD, showToast, Toast } from "@raycast/api";
 import Client from "./utils/Client";
 import links from "./queries/links";
 import { useEffect, useState } from "react";
@@ -63,6 +63,16 @@ export default function Command() {
     }
   }
 
+  async function replaceSelected(url: string) {
+    const content: Clipboard.Content = {
+      text: url,
+    };
+
+    await Clipboard.paste(content);
+
+    showHUD('Replaced with short url');
+  }
+
   return (
     <List isShowingDetail isLoading={items.length === 0}>
       {items.map((link: Link) => (
@@ -88,6 +98,9 @@ export default function Command() {
               <Action title="Copy Original Url"
                       icon={Icon.CopyClipboard}
                       onAction={() => copyLink(link.original)}/>
+              <Action title="Replace With Short Url"
+                      icon={Icon.Clipboard}
+                      onAction={() => replaceSelected(link.url)}/>
               <Action title="Delete"
                       icon={Icon.Trash}
                       style={Action.Style.Destructive}
