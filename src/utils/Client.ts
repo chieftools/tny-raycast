@@ -1,4 +1,4 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, createHttpLink, DefaultOptions, InMemoryCache } from "@apollo/client";
 import fetch from "cross-fetch";
 import { setContext } from "@apollo/client/link/context";
 import { getPreferenceValues } from "@raycast/api";
@@ -22,9 +22,21 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
+const defaultOptions: DefaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore',
+  },
+  query: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'all',
+  },
+}
+
 const Client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+  defaultOptions: defaultOptions,
 });
 
 export default Client;

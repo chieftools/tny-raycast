@@ -23,6 +23,13 @@
       "subtitle": "This command shortens and replaces the selected url",
       "description": "This command shortens and replaces the selected url",
       "mode": "no-view"
+    },
+    {
+      "name": "manage-short-links",
+      "title": "Manage short links",
+      "subtitle": "Manage your Tny links",
+      "description": "Manage your Tny links",
+      "mode": "view"
     }
   ],
   "preferences": [
