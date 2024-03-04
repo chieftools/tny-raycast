@@ -3,6 +3,7 @@ import Client from "./utils/Client";
 import links from "./queries/links";
 import { useEffect, useState } from "react";
 import linkDelete from "./mutations/linkDelete";
+import * as oauth from "./utils/Auth";
 
 export default function Command() {
   const [items, setItems] = useState([]);
@@ -16,7 +17,14 @@ export default function Command() {
   };
 
   useEffect(() => {
-    loadLinks();
+    (async () => {
+      try {
+        await oauth.authorize();
+        loadLinks();
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }, [links]);
 
   async function deleteLink(id: string) {
