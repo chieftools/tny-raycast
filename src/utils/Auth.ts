@@ -6,7 +6,7 @@ const authorizeURL = "https://account.chief.app/login/oauth/authorize";
 const scopes = "profile email tny offline_access";
 
 const client = new OAuth.PKCEClient({
-  redirectMethod: OAuth.RedirectMethod.AppURI,
+  redirectMethod: OAuth.RedirectMethod.App,
   providerName: 'tny',
   providerIcon: 'tny-icon.png',
   description: 'Login with your Tny account',
