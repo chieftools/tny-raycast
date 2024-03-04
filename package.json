@@ -32,15 +32,6 @@
       "mode": "view"
     }
   ],
-  "preferences": [
-    {
-      "type": "password",
-      "title": "Personal Access Token",
-      "required": true,
-      "name": "personal_access_token",
-      "description": "You can obtain one at tny.app"
-    }
-  ],
   "dependencies": {
     "@apollo/client": "^3.9.3",
     "@raycast/api": "^1.66.2",

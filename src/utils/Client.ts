@@ -1,7 +1,6 @@
 import { ApolloClient, createHttpLink, DefaultOptions, InMemoryCache } from "@apollo/client";
 import fetch from "cross-fetch";
 import { setContext } from "@apollo/client/link/context";
-import { getPreferenceValues } from "@raycast/api";
 import * as oauth from "./Auth";
 
 const httpLink = createHttpLink({
@@ -10,15 +9,13 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const preferenceValues = getPreferenceValues();
-  const token = preferenceValues.personal_access_token;
+  const token = await oauth.getAccessToken();
 
   // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${(await oauth.getAccessToken())}` : "",
+      authorization: token ? `Bearer ${token}` : "",
     }
   }
 });
