@@ -1,8 +1,11 @@
 import { Clipboard, showToast, Toast, getSelectedText, showHUD } from "@raycast/api";
 import Client from "./utils/Client";
 import linkCreate from "./mutations/linkCreate";
+import * as oauth from "./utils/Auth";
 
 export default async function Command() {
+  await oauth.authorize();
+
   let url: string = '';
   let selectedText: string|null = null;
 
