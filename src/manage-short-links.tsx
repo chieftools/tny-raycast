@@ -8,9 +8,12 @@ import * as oauth from "./utils/Auth";
 export default function Command() {
   const [items, setItems] = useState([]);
 
-  const loadLinks = async () => {
+  const loadLinks = async (search: string = "") => {
     await Client.query({
       query: links,
+      variables: {
+        search: search,
+      }
     }).then(async (res) => {
       setItems(res.data.viewer.links.data);
     })
@@ -82,15 +85,19 @@ export default function Command() {
   }
 
   return (
-    <List isShowingDetail isLoading={items.length === 0}>
-      {items.map((link: Link) => (
+    <List filtering={false} isShowingDetail isLoading={items.length === 0} onSearchTextChange={loadLinks} searchBarPlaceholder="Search Tny...">
+      {items.map((link: Link, index: number) => (
         <List.Item
-          key={link.id}
+          key={index}
           title={link.original}
+          icon={{
+            source: link.favicon,
+          }}
           detail={
             <List.Item.Detail
               metadata={
                 <List.Item.Detail.Metadata>
+                  <List.Item.Detail.Metadata.Label title="Original url" text={link.original} />
                   <List.Item.Detail.Metadata.Label title="Short url" text={link.url} />
                   <List.Item.Detail.Metadata.Label title="Clicks" text={link.clicks.toString()} />
                   <List.Item.Detail.Metadata.Label title="Created" text={link.createdAt} />
@@ -128,4 +135,5 @@ interface Link {
   url: string,
   clicks: number,
   createdAt: string,
+  favicon: string,
 }

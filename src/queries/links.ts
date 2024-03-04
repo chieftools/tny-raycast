@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 
 export default gql`
-  query raycastQueryLinks {
+  query raycastQueryLinks($search: String) {
     viewer {
-      links {
+      links(search: $search) {
         data {
           url
           updatedAt
@@ -12,6 +12,7 @@ export default gql`
           id
           createdAt
           clicks
+          favicon
         }
       }
     }    
