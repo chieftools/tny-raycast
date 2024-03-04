@@ -1,4 +1,5 @@
 import { OAuth } from "@raycast/api";
+import fetch from "cross-fetch";
 
 const clientId = "raycast_tny";
 const tokenURL = "https://account.chief.app/api/oauth/token";
@@ -15,6 +16,8 @@ const client = new OAuth.PKCEClient({
 
 export async function authorize(): Promise<void> {
   const tokenSet = await client.getTokens();
+
+  console.log(tokenSet);
 
   if (tokenSet?.accessToken) {
     if (tokenSet.refreshToken && tokenSet.isExpired()) {
