@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export default gql`
   mutation raycastDeleteLink($id: ID!) {
-    linkDestroyById(input: {id: $id}) {
+    linkDestroyById(input: { id: $id }) {
       status {
         success
         errors {
@@ -10,5 +10,5 @@ export default gql`
         }
       }
     }
-  }  
+  }
 `;

@@ -4,32 +4,32 @@
   "title": "Tny",
   "description": "Shorten links with Tny by Chief Tools",
   "icon": "tny-icon.png",
-  "author": "Sebastiaan Kloos",
+  "author": "stayallive",
   "categories": [
     "Productivity"
   ],
   "license": "MIT",
   "commands": [
     {
-      "name": "shorten-selected-url",
-      "title": "Shorten selected url and copy",
-      "subtitle": "Tny",
-      "description": "This command shortens the selected url",
-      "mode": "no-view"
-    },
-    {
-      "name": "shorten-and-replace-selected-url",
-      "title": "Shorten selected url and replace",
-      "subtitle": "Tny",
-      "description": "This command shortens and replaces the selected url",
-      "mode": "no-view"
-    },
-    {
-      "name": "manage-short-links",
-      "title": "Manage short links",
+      "name": "manage-links",
+      "title": "Manage Short Links",
       "subtitle": "Tny",
       "description": "Manage your Tny links",
       "mode": "view"
+    },
+    {
+      "name": "shorten-selected-url-and-copy",
+      "title": "Shorten Selected URL and Copy to Clipboard",
+      "subtitle": "Tny",
+      "description": "This command shortens the selected URL and copies it to the clipboard",
+      "mode": "no-view"
+    },
+    {
+      "name": "shorten-selected-url-and-replace",
+      "title": "Shorten and Replace Selected URL",
+      "subtitle": "Tny",
+      "description": "This command shortens and replaces the selected URL with the shortened URL",
+      "mode": "no-view"
     }
   ],
   "dependencies": {
