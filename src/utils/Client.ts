@@ -1,21 +1,29 @@
 import fetch from "cross-fetch";
 import { setContext } from "@apollo/client/link/context";
+import { environment } from "@raycast/api";
 import { getAccessToken } from "./Auth";
 import { ApolloClient, createHttpLink, DefaultOptions, InMemoryCache } from "@apollo/client";
 
 const httpLink = createHttpLink({
   uri: "https://tny.app/api/graphql",
   fetch: fetch,
+  headers: {
+    "user-agent": `Raycast/${environment.raycastVersion} (extension:${environment.extensionName} dev:${environment.isDevelopment})`,
+    "graphql-client": `raycast:${environment.raycastVersion}`,
+  },
 });
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await getAccessToken();
 
-  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      ...(token
+        ? {
+            authorization: `Bearer ${token}`,
+          }
+        : {}),
     },
   };
 });
