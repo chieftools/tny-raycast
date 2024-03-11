@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export default gql`
-  query raycastQueryLinks($search: String) {
+export const listLinksQuery = gql`
+  query raycastListLinks($search: String) {
     viewer {
       id
       links(first: 100, search: $search) {

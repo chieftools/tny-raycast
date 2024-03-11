@@ -1,7 +1,7 @@
 import fetch from "cross-fetch";
 import { setContext } from "@apollo/client/link/context";
 import { environment } from "@raycast/api";
-import { getAccessToken } from "./Auth";
+import { getAccessToken } from "./auth";
 import { ApolloClient, createHttpLink, DefaultOptions, InMemoryCache } from "@apollo/client";
 
 const httpLink = createHttpLink({
@@ -39,10 +39,8 @@ const defaultOptions: DefaultOptions = {
   },
 };
 
-const Client = new ApolloClient({
+export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
   defaultOptions: defaultOptions,
 });
-
-export default Client;

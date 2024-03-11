@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export default gql`
+export const createLinkMutation = gql`
   mutation raycastLinkCreate($url: URL!) {
     linkCreate(input: { url: $url }) {
       link {
@@ -10,7 +10,19 @@ export default gql`
       status {
         success
         errors {
-          name
+          messages
+        }
+      }
+    }
+  }
+`;
+
+export const destroyLinkMutation = gql`
+  mutation raycastLinkDestroy($id: ID!) {
+    linkDestroyById(input: { id: $id }) {
+      status {
+        success
+        errors {
           messages
         }
       }

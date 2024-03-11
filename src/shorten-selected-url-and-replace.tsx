@@ -1,7 +1,6 @@
-import Client from "./utils/Client";
-import linkCreate from "./mutations/linkCreate";
-import { authorize } from "./utils/Auth";
-import { getSelectedUrlFromClipboard } from "./utils/Clipboard";
+import { shortenUrl } from "./utils/links";
+import { handleGenericError } from "./utils/errors";
+import { getSelectedUrlFromClipboard } from "./utils/clipboard";
 import { Clipboard, showToast, Toast, showHUD } from "@raycast/api";
 
 export default async function Command() {
@@ -11,31 +10,12 @@ export default async function Command() {
     return;
   }
 
-  await authorize();
-
-  const defaultErrorMessage = "Unable to shorten the given URL!";
-
   try {
-    const { data } = await Client.mutate({
-      mutation: linkCreate,
-      variables: {
-        url: urlToShorten,
-      },
-    });
+    const shortUrl = await shortenUrl(urlToShorten);
 
-    const response = data.linkCreate;
-
-    if (!response.status.success) {
-      await showToast({
-        title: "Error",
-        style: Toast.Style.Failure,
-        message: response.status.errors[0].messages[0] ?? defaultErrorMessage,
-      });
-
+    if (!shortUrl) {
       return;
     }
-
-    const shortUrl = response.link.url;
 
     const newUrl: Clipboard.Content = {
       text: shortUrl,
@@ -53,12 +33,6 @@ export default async function Command() {
 
     await showHUD("Successfully replaced URL with Tny URL!");
   } catch (error) {
-    console.error(error);
-
-    await showToast({
-      title: "Error",
-      style: Toast.Style.Failure,
-      message: defaultErrorMessage,
-    });
+    await handleGenericError(error);
   }
 }

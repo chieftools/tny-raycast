@@ -1,8 +1,8 @@
-import links from "./queries/links";
-import Client from "./utils/Client";
-import linkDelete from "./mutations/linkDelete";
+import { client } from "./api/client";
 import { TnyLink } from "./types";
-import { authorize } from "./utils/Auth";
+import { authorize } from "./api/auth";
+import { listLinksQuery } from "./api/queries/links";
+import { destroyLinkMutation } from "./api/mutations/links";
 import { useEffect, useState } from "react";
 import { Action, ActionPanel, Clipboard, Icon, List, showHUD, showToast, Toast } from "@raycast/api";
 
@@ -19,8 +19,8 @@ export default function Command() {
     setIsLoading(true);
 
     try {
-      const result = await Client.query({
-        query: links,
+      const result = await client.query({
+        query: listLinksQuery,
         variables: {
           search: searchQuery,
         },
@@ -66,8 +66,8 @@ export default function Command() {
 
   async function deleteLink(id: string) {
     try {
-      await Client.mutate({
-        mutation: linkDelete,
+      await client.mutate({
+        mutation: destroyLinkMutation,
         variables: {
           id: id,
         },
@@ -106,15 +106,13 @@ export default function Command() {
       isLoading={isLoading}
       isShowingDetail
       onSearchTextChange={setSearchQuery}
-      searchBarPlaceholder="Search Tny..."
+      searchBarPlaceholder="Search in your Tny links..."
     >
       {items.map((link: TnyLink, index: number) => (
         <List.Item
           key={index}
+          icon={link.favicon}
           title={link.original}
-          icon={{
-            source: link.favicon,
-          }}
           detail={
             <List.Item.Detail
               metadata={
